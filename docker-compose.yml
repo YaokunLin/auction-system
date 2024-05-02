@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_PASSWORD: pwd  # Ensure to use secure passwords in production
+      POSTGRES_DB: cs6400_sp24_team036  # This is the database name
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"  # Optional: Only expose if you need to access the DB locally
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      DATABASE_HOST: db  # Name of the DB service in this file
+      DATABASE_USER: postgres  # Default PostgreSQL user
+      DATABASE_PASSWORD: pwd  # Matches POSTGRES_PASSWORD above
+      DATABASE_NAME: cs6400_sp24_team036  # Should match POSTGRES_DB above
+    ports:
+      - "3000:3000"  
+
+volumes:
+  pgdata:  # This volume persists your DB data across container rebuilds
