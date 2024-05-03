@@ -52,6 +52,9 @@ INSERT INTO AdminUser (username, position) VALUES
 ('admin2', 'Chief Techy'),
 ('mred', 'CEO');
 
+UPDATE PlatformUser
+SET password = '1234';
+
 INSERT INTO Item ( item_name, item_description, returnable, username, categoryID, conditionID, status, starting_bid_price, minimum_sale_price, get_it_now_price, start_datetime, end_datetime, cancel_reason, cancel_datetime)
 VALUES
 ( 'good book', 'good book', TRUE, 'pbrown', (SELECT categoryID FROM Category WHERE category_name = 'Books'), (SELECT conditionID FROM Condition WHERE condition_name = 'New'), 'active', 20.00, 50.00, 80.00, CURRENT_TIMESTAMP, '2024-02-02 22:48:00', NULL, NULL),
